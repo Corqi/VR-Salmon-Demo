@@ -1,4 +1,0 @@
-repository "VR_Salmon/VR_Salmon@7971489324038@cloud"
-  path "/"
-    br "/main"
-    co "/main"
