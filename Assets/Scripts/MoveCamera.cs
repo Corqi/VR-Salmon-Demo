@@ -16,16 +16,20 @@ public class MoveCamera : MonoBehaviour
     private Vector3 targetPosition;
     private Vector3 finalPosition;
 
+    private Quaternion initialLeverRotation;
+
     void Start()
     {
         originalPosition = transform.position;
         finalPosition = originalPosition + moveDirection.normalized * moveDistance;
         targetPosition = transform.position;
+
+        initialLeverRotation = leverHandle.rotation;
     }
 
     void Update()
     {
-        leverAngle = Vector3.Angle(leverHandle.up, transform.up);
+        leverAngle = Quaternion.Angle(initialLeverRotation, leverHandle.rotation);
 
         if (leverAngle >= leverAngleThreshold)
         {
