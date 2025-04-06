@@ -9,7 +9,7 @@ public class ConveyorBelt : MonoBehaviour
     public Vector3 direction = Vector3.right; // Movement direction (now right)
     
     [Header("Runtime Data")]
-    public List<GameObject> onBelt;       // Objects on belt
+    [SerializeField] private List<GameObject> onBelt = new List<GameObject>();
     
     private Material beltMaterial;
     private Vector2 textureOffset;
@@ -32,12 +32,39 @@ public class ConveyorBelt : MonoBehaviour
 
     void FixedUpdate()
     {
-        // Move objects (unchanged from your working version)
+
         for(int i = 0; i < onBelt.Count; i++)
         {
-            Rigidbody rb = onBelt[i]?.GetComponent<Rigidbody>();
+        if(onBelt[i] == null || !onBelt[i].activeSelf) 
+        {
+            onBelt.RemoveAt(i);
+            i--;
+            continue;
+        }
+
+        // Move objects (unchanged from your working version)
+        for(int j = 0; j < onBelt.Count; j++)
+        {
+            Rigidbody rb = onBelt[j]?.GetComponent<Rigidbody>();
             if(rb != null) rb.linearVelocity = speed * direction;
-            else { onBelt.RemoveAt(i); i--; }
+            else { onBelt.RemoveAt(j); j--; }
+        }
+    }
+    }
+
+        public void RemoveFish(GameObject fish)
+    {
+        if (onBelt.Contains(fish))
+        {
+            onBelt.Remove(fish);
+        }
+    }
+
+        public void AddObjectToBelt(GameObject obj)
+    {
+        if (!onBelt.Contains(obj))
+        {
+            onBelt.Add(obj);
         }
     }
 
