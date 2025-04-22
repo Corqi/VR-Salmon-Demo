@@ -44,7 +44,7 @@ public class FishSwarmController : MonoBehaviour
 
             // Make fish face in the direction of movement
             fishes[i].LookAt(new Vector3(transform.position.x, fishes[i].position.y, transform.position.z));
-            fishes[i].Rotate(0, -90, 0);
+            fishes[i].Rotate(0, 0, 0);
         }
     }
 
